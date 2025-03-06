@@ -1,8 +1,11 @@
 from openai import OpenAI
 import json
+import os
+from dotenv import load_dotenv
 
 def main():
-
+    load_dotenv()
+    os.getenv("API_KEY")
     client = OpenAI(
         base_url="https://api.kluster.ai/v1",
         api_key="dd93e43a-c722-4e17-92e5-9007c31002a1",  # Replace with your actual API key
