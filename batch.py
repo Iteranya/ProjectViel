@@ -45,6 +45,7 @@ def create_batch_requests(df):
     batch_requests = []
     for i, row in enumerate(df.itertuples(index=False)):
         original_output = row.output
+        original_question = f"Instruction: {row.instruction}, Input (if any): {row.input}"
         request_obj = {
             "custom_id": f"request-{i}",
             "method": "POST",
@@ -58,7 +59,7 @@ def create_batch_requests(df):
                     },
                     {
                         "role": "user",
-                        "content": f"Here's the original answer: <answer>{original_output}.</answer> \n\nNow, rewrite the answer as Viel. Stay in character and keep the character personality consistent."
+                        "content": f"Here's the original question: <question> {original_question}</question> \n\nHere's the original answer: <answer>{original_output}.</answer> \n\nNow, write {config.AI_NAME}'s answer to the question, make sure the answer is unique / different / more accurate than the original answer. Stay in character and keep the character personality consistent. Keep the answer length the same, if the answer is long, write a long answer. If the answer is short, write a short answer."
                     }
                 ],
                 "temperature": config.TEMPERATURE,
